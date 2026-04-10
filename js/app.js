@@ -263,10 +263,12 @@ function clearFilters() {
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('.cat-btn[data-cat="all"]')?.classList.add('active');
   // Reset price sliders
-  const minEl = document.getElementById('price-min');
-  const maxEl = document.getElementById('price-max');
-  if (minEl) { priceMin = parseFloat(minEl.min); minEl.value = minEl.min; document.getElementById('price-min-val').textContent = formatCurrency(priceMin); }
-  if (maxEl) { priceMax = parseFloat(maxEl.max); maxEl.value = maxEl.max; document.getElementById('price-max-val').textContent = formatCurrency(priceMax); }
+  const minEl   = document.getElementById('price-min');
+  const maxEl   = document.getElementById('price-max');
+  const minVal  = document.getElementById('price-min-val');
+  const maxVal  = document.getElementById('price-max-val');
+  if (minEl) { priceMin = parseFloat(minEl.min); minEl.value = minEl.min; if (minVal) minVal.textContent = formatCurrency(priceMin); }
+  if (maxEl) { priceMax = parseFloat(maxEl.max); maxEl.value = maxEl.max; if (maxVal) maxVal.textContent = formatCurrency(priceMax); }
   renderProducts();
 }
 

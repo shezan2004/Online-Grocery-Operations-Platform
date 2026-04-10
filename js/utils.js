@@ -63,6 +63,20 @@ function luhnCheck(cardNum) {
 }
 
 /**
+ * Escape HTML special characters to prevent XSS.
+ * @param {string} str
+ * @returns {string}
+ */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
  * Show a toast notification.
  * @param {string} msg
  * @param {'success'|'error'|'info'|'warning'} type
@@ -78,7 +92,7 @@ function showToast(msg, type = 'info') {
   const toast = document.createElement('div');
   toast.className = `toast toast-${type}`;
   const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
-  toast.innerHTML = `<span class="toast-icon">${icons[type] || 'ℹ️'}</span><span class="toast-msg">${msg}</span>`;
+  toast.innerHTML = `<span class="toast-icon">${icons[type] || 'ℹ️'}</span><span class="toast-msg">${escapeHtml(msg)}</span>`;
   container.appendChild(toast);
 
   requestAnimationFrame(() => toast.classList.add('show'));
