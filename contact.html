@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — FreshMart</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="/" class="header-logo">🛒 FreshMart</a>
+  <nav class="header-nav">
+    <a href="/">Shop</a>
+    <a href="/faq.html">FAQ</a>
+    <a href="/profile.html">My Profile</a>
+  </nav>
+  <div id="auth-area"></div>
+</header>
+
+<!-- ── PAGE HEADER ───────────────────────────────────────────────────────── -->
+<div class="page-header">
+  <h1>📬 Contact & Support</h1>
+  <p>We're here to help! Reach out anytime and we'll get back to you promptly.</p>
+</div>
+
+<!-- ── CONTACT LAYOUT ────────────────────────────────────────────────────── -->
+<div class="contact-layout">
+
+  <!-- Contact Info Cards -->
+  <div class="contact-info">
+    <div class="contact-card">
+      <div class="contact-card-icon">📧</div>
+      <div>
+        <h4>Email Us</h4>
+        <p>support@freshmart.com</p>
+        <p style="font-size:.78rem;margin-top:.25rem;color:var(--text-muted)">Response within 2 hours</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-icon">📞</div>
+      <div>
+        <h4>Call Us</h4>
+        <p>1-800-FRESH-MART</p>
+        <p style="font-size:.78rem;margin-top:.25rem;color:var(--text-muted)">Mon–Sun, 7AM – 10PM EST</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-icon">📍</div>
+      <div>
+        <h4>Our Address</h4>
+        <p>123 Market Street</p>
+        <p>New York, NY 10001</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-icon">🕐</div>
+      <div>
+        <h4>Support Hours</h4>
+        <p>Monday – Friday: 7AM – 10PM</p>
+        <p>Saturday – Sunday: 8AM – 8PM</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-icon">💬</div>
+      <div>
+        <h4>Live Chat</h4>
+        <p>Available on our website</p>
+        <p style="font-size:.78rem;margin-top:.25rem;color:var(--text-muted)">Avg. wait: under 5 minutes</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form-card">
+    <h2>Send Us a Message</h2>
+
+    <div class="contact-success" id="contact-success">
+      <span>✅</span>
+      <h3>Message Sent!</h3>
+      <p>Thank you for reaching out. Our support team will get back to you within 2 hours.</p>
+      <button onclick="resetContactForm()" class="btn-primary" style="margin-top:1rem;width:auto;padding:.6rem 1.5rem">Send Another Message</button>
+    </div>
+
+    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+      <div class="form-group">
+        <label>Full Name <span style="color:#dc2626">*</span></label>
+        <input type="text" id="cf-name" placeholder="Your full name" required />
+        <span class="field-error" id="cf-name-err"></span>
+      </div>
+      <div class="form-group">
+        <label>Email Address <span style="color:#dc2626">*</span></label>
+        <input type="email" id="cf-email" placeholder="your@email.com" required />
+        <span class="field-error" id="cf-email-err"></span>
+      </div>
+      <div class="form-group">
+        <label>Category <span style="color:#dc2626">*</span></label>
+        <select id="cf-category" required>
+          <option value="">Select a category</option>
+          <option value="Order Issue">Order Issue</option>
+          <option value="Payment Problem">Payment Problem</option>
+          <option value="Delivery Inquiry">Delivery Inquiry</option>
+          <option value="Technical Support">Technical Support</option>
+          <option value="Product Inquiry">Product Inquiry</option>
+          <option value="Return & Refund">Return & Refund</option>
+          <option value="Account Help">Account Help</option>
+          <option value="General Inquiry">General Inquiry</option>
+        </select>
+        <span class="field-error" id="cf-cat-err"></span>
+      </div>
+      <div class="form-group">
+        <label>Message <span style="color:#dc2626">*</span></label>
+        <textarea id="cf-message" placeholder="Describe your issue or question in detail…" rows="5" required></textarea>
+        <span class="field-error" id="cf-msg-err"></span>
+      </div>
+      <button type="submit" class="btn-primary">📨 Send Message</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>🛒 FreshMart</h4>
+      <p>Your trusted online grocery store. Fresh products delivered to your doorstep.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="/">Home</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contact.html">Contact Us</a>
+      <a href="/profile.html">My Profile</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <p>📧 support@freshmart.com</p>
+      <p>📞 1-800-FRESH-MART</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 FreshMart. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ───────────────────────────────────────────────────────────── -->
+<script src="/firebase-config.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/auth.js"></script>
+
+<script>
+  const MESSAGES_KEY = 'gp_messages';
+
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    const name     = document.getElementById('cf-name').value.trim();
+    const email    = document.getElementById('cf-email').value.trim();
+    const category = document.getElementById('cf-category').value;
+    const message  = document.getElementById('cf-message').value.trim();
+
+    // Clear errors
+    ['cf-name-err','cf-email-err','cf-cat-err','cf-msg-err'].forEach(id => {
+      const el = document.getElementById(id); if (el) { el.textContent=''; el.style.display='none'; }
+    });
+
+    let valid = true;
+    if (!name) { showFieldErr('cf-name-err', 'Name is required.'); valid = false; }
+    if (!validateEmail(email)) { showFieldErr('cf-email-err', 'Enter a valid email.'); valid = false; }
+    if (!category) { showFieldErr('cf-cat-err', 'Please select a category.'); valid = false; }
+    if (message.length < 10) { showFieldErr('cf-msg-err', 'Message must be at least 10 characters.'); valid = false; }
+    if (!valid) return;
+
+    const msg = {
+      id: 'MSG-' + generateId(),
+      name, email, category, message,
+      createdAt: Date.now(),
+      status: 'open'
+    };
+
+    const msgs = JSON.parse(localStorage.getItem(MESSAGES_KEY) || '[]');
+    msgs.push(msg);
+    localStorage.setItem(MESSAGES_KEY, JSON.stringify(msgs));
+
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('contact-success').style.display = 'block';
+  }
+
+  function showFieldErr(id, msg) {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+  }
+
+  function resetContactForm() {
+    document.getElementById('contact-form').reset();
+    document.getElementById('contact-form').style.display = 'block';
+    document.getElementById('contact-success').style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initAuth();
+    const session = getSession();
+    const authArea = document.getElementById('auth-area');
+    if (authArea) {
+      if (session) {
+        authArea.innerHTML = `
+          <div class="user-menu">
+            <span class="user-avatar">${session.name.charAt(0).toUpperCase()}</span>
+            <span class="user-name">${session.name.split(' ')[0]}</span>
+            <div class="user-dropdown">
+              <a href="/profile.html">👤 My Profile</a>
+              ${session.role === 'admin' ? '<a href="/admin/index.html">⚙️ Admin Panel</a>' : ''}
+              <button onclick="signOut()" class="logout-btn">🚪 Sign Out</button>
+            </div>
+          </div>`;
+      } else {
+        authArea.innerHTML = `<a href="/" class="btn-signin">Sign In</a>`;
+      }
+    }
+    // Pre-fill email if logged in
+    if (session) {
+      const emailEl = document.getElementById('cf-email');
+      const nameEl  = document.getElementById('cf-name');
+      if (emailEl) emailEl.value = session.email;
+      if (nameEl)  nameEl.value  = session.name;
+    }
+  });
+</script>
+</body>
+</html>

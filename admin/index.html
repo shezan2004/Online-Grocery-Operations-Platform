@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — FreshMart</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+<!-- ── ADMIN LOGIN ────────────────────────────────────────────────────────── -->
+<div id="admin-login" style="display:none">
+  <div class="admin-login-box">
+    <div class="brand">🛒 FreshMart Admin</div>
+    <p>Sign in with your admin credentials to continue.</p>
+    <form onsubmit="handleAdminLogin(event)">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="adm-email" placeholder="admin@grocery.com" value="admin@grocery.com" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="adm-pass" placeholder="Password" value="admin123" required />
+      </div>
+      <div id="adm-err" style="color:#dc2626;font-size:.82rem;margin-bottom:.5rem"></div>
+      <button type="submit" class="btn-login">Sign In to Admin Panel</button>
+    </form>
+    <p style="text-align:center;margin-top:1rem;font-size:.82rem;color:var(--text-muted)">
+      <a href="/" style="color:var(--primary)">← Back to Store</a>
+    </p>
+  </div>
+</div>
+
+<!-- ── ADMIN CONTENT ──────────────────────────────────────────────────────── -->
+<div id="admin-content" style="display:none">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-brand">⚙️ FreshMart Admin</div>
+    <div class="sidebar-user">Logged in as <strong id="admin-username">Admin</strong></div>
+    <nav class="admin-nav">
+      <div class="nav-item active" data-section="analytics" onclick="loadSection('analytics')">
+        <span class="nav-icon">📊</span> Analytics
+      </div>
+      <div class="nav-item" data-section="inventory" onclick="loadSection('inventory')">
+        <span class="nav-icon">📦</span> Inventory
+      </div>
+      <div class="nav-item" data-section="orders" onclick="loadSection('orders')">
+        <span class="nav-icon">🧾</span> Orders
+      </div>
+      <div class="nav-item" data-section="users" onclick="loadSection('users')">
+        <span class="nav-icon">👥</span> Users
+      </div>
+    </nav>
+    <div class="sidebar-logout">
+      <button onclick="adminLogout()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <button id="mobile-menu-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')">☰</button>
+        <span class="topbar-title">FreshMart Admin Dashboard</span>
+      </div>
+      <div class="topbar-right">
+        <span>🌿 FreshMart</span>
+        <a href="/" target="_blank">View Store →</a>
+      </div>
+    </header>
+
+    <div class="admin-body">
+
+      <!-- ── Analytics Section ──────────────────────────────────────────── -->
+      <section class="admin-section" id="sec-analytics">
+        <div class="section-header">
+          <h2>📊 Analytics Overview</h2>
+          <button onclick="renderAnalytics()" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.4rem .9rem;font-size:.85rem">🔄 Refresh</button>
+        </div>
+
+        <div class="analytics-cards">
+          <div class="an-card">
+            <span class="an-label">Total Orders</span>
+            <span class="an-value" id="an-total-orders">0</span>
+            <span class="an-icon">🧾</span>
+          </div>
+          <div class="an-card">
+            <span class="an-label">Total Revenue</span>
+            <span class="an-value" id="an-total-revenue">$0.00</span>
+            <span class="an-icon">💰</span>
+          </div>
+          <div class="an-card">
+            <span class="an-label">Total Customers</span>
+            <span class="an-value" id="an-total-customers">0</span>
+            <span class="an-icon">👥</span>
+          </div>
+          <div class="an-card">
+            <span class="an-label">Avg Order Value</span>
+            <span class="an-value" id="an-avg-order">$0.00</span>
+            <span class="an-icon">📈</span>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <div class="analytics-box">
+            <h3>🏆 Top Selling Products</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Units Sold</th>
+                  </tr>
+                </thead>
+                <tbody id="top-products-body">
+                  <tr><td colspan="4" class="empty-row">No data yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="analytics-box">
+            <h3>📋 Orders by Status</h3>
+            <div id="status-breakdown" class="status-breakdown"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Inventory Section ──────────────────────────────────────────── -->
+      <section class="admin-section" id="sec-inventory">
+        <div class="section-header">
+          <h2>📦 Inventory Management</h2>
+          <input type="text" class="table-search" placeholder="Search products…"
+            oninput="renderInventory(this.value)" />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-body">
+              <tr><td colspan="6" class="empty-row">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── Orders Section ─────────────────────────────────────────────── -->
+      <section class="admin-section" id="sec-orders">
+        <div class="section-header">
+          <h2>🧾 Order Management</h2>
+          <input type="text" class="table-search" placeholder="Search by ID, name, email…"
+            oninput="renderOrders(this.value)" />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Email</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body">
+              <tr><td colspan="7" class="empty-row">No orders yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── Users Section ──────────────────────────────────────────────── -->
+      <section class="admin-section" id="sec-users">
+        <div class="section-header">
+          <h2>👥 User Management</h2>
+          <input type="text" class="table-search" placeholder="Search by name or email…"
+            oninput="renderUsers(this.value)" />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="users-body">
+              <tr><td colspan="5" class="empty-row">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div><!-- /admin-body -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-content -->
+
+<!-- ── Edit Stock Modal ────────────────────────────────────────────────────── -->
+<div class="admin-modal" id="edit-stock-modal">
+  <div class="admin-modal-box">
+    <h3>✏️ Edit Stock — <span id="edit-product-name"></span></h3>
+    <input type="hidden" id="edit-product-id" />
+    <div class="form-group">
+      <label>Stock Quantity</label>
+      <input type="number" id="edit-stock-val" min="0" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEditStock()">Cancel</button>
+      <button class="btn-save"   onclick="saveStock_admin()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Update Order Status Modal ─────────────────────────────────────────── -->
+<div class="admin-modal" id="update-status-modal">
+  <div class="admin-modal-box">
+    <h3>🔄 Update Order Status</h3>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:1rem">Order: <strong id="us-order-label"></strong></p>
+    <input type="hidden" id="us-order-id" />
+    <div class="form-group">
+      <label>New Status</label>
+      <select id="us-status">
+        <option value="pending">Pending</option>
+        <option value="processing">Processing</option>
+        <option value="shipped">Shipped</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeUpdateStatus()">Cancel</button>
+      <button class="btn-save"   onclick="saveOrderStatus()">Update Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ───────────────────────────────────────────────────────────── -->
+<script src="/firebase-config.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

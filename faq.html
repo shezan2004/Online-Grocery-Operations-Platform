@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — FreshMart</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="/" class="header-logo">🛒 FreshMart</a>
+  <nav class="header-nav">
+    <a href="/">Shop</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/profile.html">My Profile</a>
+  </nav>
+  <div id="auth-area"></div>
+</header>
+
+<!-- ── PAGE HEADER ───────────────────────────────────────────────────────── -->
+<div class="page-header">
+  <h1>❓ Frequently Asked Questions</h1>
+  <p>Find answers to the most common questions about FreshMart</p>
+</div>
+
+<!-- ── FAQ CONTENT ───────────────────────────────────────────────────────── -->
+<div class="content-section">
+
+  <!-- Ordering -->
+  <div class="faq-category">
+    <h2>🛒 Ordering</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I place an order? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Browse our product catalog, add items to your cart using the quantity selector, then click "Proceed to Checkout." You'll need an account to complete your purchase. Payment is processed securely on the checkout page.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can I modify or cancel my order after placing it? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Orders can be modified or cancelled within 30 minutes of placement. After that, the order enters processing and changes may not be possible. Contact our support team immediately if you need to make changes.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is there a minimum order amount? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        There is no minimum order amount. However, free shipping is available on orders over $35. Orders under $35 may incur a small delivery fee depending on your location.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I use a coupon or promo code? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Open your cart sidebar and look for the "Enter coupon code" field. Type in your code and click "Apply." Valid codes include SAVE10 (10% off $20+), FLAT5 ($5 off $30+), and WELCOME15 (15% off any order). Discounts are shown in the pricing breakdown immediately.
+      </div>
+    </div>
+  </div>
+
+  <!-- Delivery -->
+  <div class="faq-category">
+    <h2>🚚 Delivery</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What are your delivery hours? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        We deliver 7 days a week from 7:00 AM to 10:00 PM. Same-day delivery is available for orders placed before 2:00 PM. Weekend deliveries are available in most metro areas.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How long does delivery take? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Standard delivery takes 1-2 business days. Same-day delivery is available in select areas for orders placed before 2:00 PM. Express 2-hour delivery is available in major cities for a small fee.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Do you deliver to my area? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        We currently serve most major metro areas across the US. Enter your zip code during checkout to confirm delivery availability at your address. We are continuously expanding our delivery zones.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What happens if I'm not home during delivery? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        For most deliveries, our driver will leave the package in a safe location at your door. For orders requiring a signature (such as alcohol), a second delivery attempt will be made the next day. You'll receive a notification with delivery updates.
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment -->
+  <div class="faq-category">
+    <h2>💳 Payment</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What payment methods do you accept? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        We accept Credit/Debit Cards (Visa, Mastercard, Amex, Discover), Digital Wallets (PayPal, Apple Pay, Google Pay), Bank Transfers, and Cash on Delivery. All transactions are encrypted and secure.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is my payment information secure? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Absolutely. We use industry-standard SSL encryption for all transactions. We never store your full card number — only the last 4 digits are kept for your reference. Our payment processing is PCI DSS compliant.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        When will I be charged? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        For card and wallet payments, you are charged immediately when you place your order. For bank transfers, payment is due within 24 hours of placing the order. Cash on Delivery is paid to the delivery driver at time of delivery.
+      </div>
+    </div>
+  </div>
+
+  <!-- Returns -->
+  <div class="faq-category">
+    <h2>↩️ Returns & Refunds</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is your return policy? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        We accept returns on non-perishable items within 7 days of delivery in original, unopened packaging. For perishable items (fresh produce, dairy, meat), we offer exchanges or refunds if the product is defective or damaged on arrival. Contact us within 24 hours of receiving the order.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I request a refund? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        To request a refund, go to your Order History in My Profile, find the order, and click "Request Refund." Alternatively, contact our support team via the Contact page with your order ID and reason. Refunds are processed within 3-5 business days.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What if I received a wrong or damaged item? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        We sincerely apologize! Please contact us within 24 hours of delivery with a photo of the issue and your order number. We will arrange a replacement delivery or full refund, whichever you prefer, at no additional cost.
+      </div>
+    </div>
+  </div>
+
+  <!-- Account -->
+  <div class="faq-category">
+    <h2>👤 Account</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I create an account? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Click "Sign In" in the top right corner, then select "Sign Up." Fill in your name, email, and a password (minimum 6 characters). Your account is created instantly and you can start shopping immediately.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        I forgot my password. How do I reset it? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Click "Sign In" and then "Forgot password?" Enter your registered email address and we'll send you a password reset link. The link expires in 24 hours. If you don't see the email, check your spam folder.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I view my order history? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        Sign in to your account, then go to My Profile → Order History tab. You'll see all your orders with status, date, payment method, and itemized details. Click any order to expand and see the full breakdown.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How does the wishlist work? <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        You can save any product to your wishlist by clicking the heart (🤍) button on any product card. Sign in is required. Access your wishlist from My Profile → Wishlist tab, where you can add items to your cart or remove them from the wishlist.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>🛒 FreshMart</h4>
+      <p>Your trusted online grocery store. Fresh products delivered to your doorstep.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="/">Home</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contact.html">Contact Us</a>
+      <a href="/profile.html">My Profile</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <p>📧 support@freshmart.com</p>
+      <p>📞 1-800-FRESH-MART</p>
+      <p>🕐 Mon–Sun, 7AM–10PM</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 FreshMart. All rights reserved.</span>
+    <span>Still have questions? <a href="/contact.html" style="color:var(--accent)">Contact Us</a></span>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ───────────────────────────────────────────────────────────── -->
+<script src="/firebase-config.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/auth.js"></script>
+
+<script>
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // Close all others
+    document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-question.open').forEach(q => q.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initAuth();
+    const session = getSession();
+    const authArea = document.getElementById('auth-area');
+    if (authArea) {
+      if (session) {
+        authArea.innerHTML = `
+          <div class="user-menu">
+            <span class="user-avatar">${session.name.charAt(0).toUpperCase()}</span>
+            <span class="user-name">${session.name.split(' ')[0]}</span>
+            <div class="user-dropdown">
+              <a href="/profile.html">👤 My Profile</a>
+              ${session.role === 'admin' ? '<a href="/admin/index.html">⚙️ Admin Panel</a>' : ''}
+              <button onclick="signOut()" class="logout-btn">🚪 Sign Out</button>
+            </div>
+          </div>`;
+      } else {
+        authArea.innerHTML = `<a href="/" class="btn-signin" onclick="event.preventDefault();window.location.href='/'">Sign In</a>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
