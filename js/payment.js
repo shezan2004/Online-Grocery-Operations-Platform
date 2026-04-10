@@ -100,12 +100,16 @@ function validateCard() {
   if (!luhnCheck(num)) return setError('card-num-err', 'Invalid card number.');
 
   const [mm, yy] = exp.split('/');
-  if (!mm || !yy || mm < 1 || mm > 12) return setError('card-exp-err', 'Invalid expiry (MM/YY).');
+  const mmInt = parseInt(mm, 10);
+  const yyInt = parseInt(yy, 10);
+  if (!mm || !yy || isNaN(mmInt) || isNaN(yyInt) || mmInt < 1 || mmInt > 12) {
+    return setError('card-exp-err', 'Invalid expiry (MM/YY).');
+  }
   const currentYear  = new Date().getFullYear();
   const centuryBase  = Math.floor(currentYear / 100) * 100;
-  const fullYear     = centuryBase + parseInt(yy, 10);
+  const fullYear     = centuryBase + yyInt;
   const now = new Date();
-  const expDate = new Date(fullYear, parseInt(mm, 10) - 1, 1);
+  const expDate = new Date(fullYear, mmInt - 1, 1);
   if (expDate <= now) return setError('card-exp-err', 'Card is expired.');
 
   if (!/^\d{3,4}$/.test(cvv)) return setError('card-cvv-err', 'CVV must be 3-4 digits.');
