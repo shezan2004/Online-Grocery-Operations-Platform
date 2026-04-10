@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | SuperMart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Super<span>Mart</span> 🛒</a></div>
+            <div style="flex: 1; text-align: center; font-size: 1.3rem; font-weight: 600;">Frequently Asked Questions</div>
+            <div class="nav-actions">
+                <button class="login-btn" onclick="window.location.href='index.html'">Back to Shop</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How do I place an order?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>To place an order, simply browse our products, add items to your cart, and proceed to checkout. You'll need to create an account or log in first. Once you've filled in your delivery address and selected your payment method, your order will be confirmed.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>What payment methods do you accept?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>We accept multiple payment methods including:</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>Credit/Debit Cards (Visa, Mastercard, American Express)</li>
+                    <li>Digital Wallets (Apple Pay, Google Pay, PayPal)</li>
+                    <li>Bank Transfers</li>
+                    <li>Cash on Delivery</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How long does delivery take?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Delivery typically takes 2-5 business days depending on your location. You'll receive a tracking number once your order ships. Orders placed on weekends or holidays will be processed the next business day.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Is there a minimum order amount?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>No, there's no minimum order amount. However, free shipping is available on orders $50 and above. For orders under $50, a flat shipping fee of $4.99 will apply.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Can I return or exchange items?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! We offer a 30-day return policy on most items. Products must be unused and in original packaging. Perishable items have a 3-day policy. Contact our customer service for return instructions.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How do I use a discount code?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>You can apply discount codes on the checkout page. Popular codes include:</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>WELCOME</strong> - 5% off first order</li>
+                    <li><strong>SAVE10</strong> - 10% off orders $50+</li>
+                    <li><strong>SAVE20</strong> - 20% off orders $100+</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How do I track my order?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Once your order ships, you'll receive an email with a tracking number. You can use this number to track your package in real-time. You can also view your order status in your profile under "Order History".</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Is my personal information safe?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! We use industry-standard encryption and security measures to protect your personal and payment information. Your data is never shared with third parties without your consent. Read our Privacy Policy for more details.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How do I contact customer support?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>You can reach our customer support team through:</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>📧 Email: support@supermart.com</li>
+                    <li>📞 Phone: 1-800-SUPERMART (24/7)</li>
+                    <li>💬 Live Chat: Available on our website</li>
+                    <li>📝 Contact Form: Visit our <a href="contact.html">contact page</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Do you offer a loyalty program?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! Our SuperMart Rewards program gives you points on every purchase. Earn 1 point per dollar spent and redeem 100 points for $10 off. Members also get exclusive deals and birthday discounts!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About SuperMart</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Fresh Produce</a></li>
+                    <li><a href="#">Dairy & Eggs</a></li>
+                    <li><a href="#">Beauty & Health</a></li>
+                    <li><a href="#">Home & Kitchen</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">Mobile App</a></li>
+                    <li><a href="#">Loyalty Program</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SuperMart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('show');
+                    item.previousElementSibling.querySelector('.faq-toggle').innerText = '+';
+                }
+            });
+
+            answer.classList.toggle('show');
+            toggle.innerText = answer.classList.contains('show') ? '−' : '+';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SuperMart</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: 250px;
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .admin-sidebar h2 {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #10b981;
+        }
+
+        .admin-sidebar ul {
+            list-style: none;
+        }
+
+        .admin-sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .admin-sidebar button {
+            width: 100%;
+            padding: 12px;
+            background: none;
+            border: 1px solid #374151;
+            color: #d1d5db;
+            cursor: pointer;
+            border-radius: 6px;
+            text-align: left;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .admin-sidebar button:hover,
+        .admin-sidebar button.active {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: 250px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .admin-header h1 {
+            color: #1f2937;
+            font-size: 1.8rem;
+        }
+
+        .admin-user-info {
+            text-align: right;
+        }
+
+        .admin-user-info .username {
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 5px;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Dashboard Sections */
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        /* Analytics Cards */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #10b981;
+        }
+
+        .analytics-card h3 {
+            color: #6b7280;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .analytics-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        /* Tables */
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: #f3f4f6;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .data-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Buttons in Tables */
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #2563eb;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-processing {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-shipped {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .status-delivered,
+        .status-completed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-paid {
+            background: #cffafe;
+            color: #0f766e;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .save-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #059669;
+        }
+
+        .cancel-btn {
+            background: #d1d5db;
+            color: #1f2937;
+        }
+
+        .cancel-btn:hover {
+            background: #9ca3af;
+        }
+
+        /* Search & Filter */
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search-btn:hover {
+            background: #059669;
+        }
+
+        /* Top Products */
+        .top-product {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-product:last-child {
+            border-bottom: none;
+        }
+
+        .top-product strong {
+            color: #1f2937;
+        }
+
+        .top-product .quantity {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                overflow-x: auto;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .admin-user-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <h2>🛠️ Admin</h2>
+            <ul>
+                <li><button class="nav-btn active" onclick="showSection('dashboard', this)">📊 Dashboard</button></li>
+                <li><button class="nav-btn" onclick="showSection('inventory', this)">📦 Inventory</button></li>
+                <li><button class="nav-btn" onclick="showSection('orders', this)">🛒 Orders</button></li>
+                <li><button class="nav-btn" onclick="showSection('users', this)">👥 Users</button></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-user-info">
+                    <div class="username" id="adminName">Welcome!</div>
+                    <button class="logout-btn" onclick="adminLogout()">Logout</button>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="dashboard-section active">
+                <h2 style="margin-bottom: 20px; color: #1f2937;">Analytics Overview</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Total Orders</h3>
+                        <div class="value" id="totalOrders">0</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Total Revenue</h3>
+                        <div class="value" id="totalRevenue">$0.00</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Total Users</h3>
+                        <div class="value" id="totalUsers">0</div>
+                    </div>
+                </div>
+
+                <h2 style="margin: 30px 0 20px 0; color: #1f2937;">Top 5 Products</h2>
+                <div class="data-table">
+                    <div id="topProducts" style="padding: 20px;">
+                        <p style="text-align: center; color: #6b7280;">No data available</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section id="inventory" class="dashboard-section">
+                <h2 style="margin-bottom: 20px; color: #1f2937;">Product Inventory</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchInventory" placeholder="Search by product name...">
+                    <button class="search-btn" onclick="searchInventory()">Search</button>
+                    <button class="search-btn" style="background: #6b7280;" onclick="resetInventorySearch()">Reset</button>
+                </div>
+                <div class="data-table">
+                    <table id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Current Stock</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="dashboard-section">
+                <h2 style="margin-bottom: 20px; color: #1f2937;">Orders Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchOrders" placeholder="Search by order ID...">
+                    <button class="search-btn" onclick="searchOrders()">Search</button>
+                    <button class="search-btn" style="background: #6b7280;" onclick="resetOrdersSearch()">Reset</button>
+                </div>
+                <div class="data-table">
+                    <table id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users" class="dashboard-section">
+                <h2 style="margin-bottom: 20px; color: #1f2937;">Users Management</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchUsers" placeholder="Search by email or name...">
+                    <button class="search-btn" onclick="searchUsers()">Search</button>
+                    <button class="search-btn" style="background: #6b7280;" onclick="resetUsersSearch()">Reset</button>
+                </div>
+                <div class="data-table">
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Joined Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Inventory Modal -->
+    <div id="editStockModal" class="modal">
+        <div class="modal-content">
+            <h3>Update Stock</h3>
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" id="modalProductName" readonly>
+            </div>
+            <div class="form-group">
+                <label>New Stock Quantity</label>
+                <input type="number" id="modalNewStock" min="0" placeholder="Enter quantity">
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal('editStockModal')">Cancel</button>
+                <button class="save-btn" onclick="saveStockUpdate()">Update Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Order Status Modal -->
+    <div id="editOrderModal" class="modal">
+        <div class="modal-content">
+            <h3>Update Order Status</h3>
+            <div class="form-group">
+                <label>Order ID</label>
+                <input type="text" id="modalOrderId" readonly>
+            </div>
+            <div class="form-group">
+                <label>New Status</label>
+                <select id="modalOrderStatus">
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal('editOrderModal')">Cancel</button>
+                <button class="save-btn" onclick="saveOrderStatusUpdate()">Update Status</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Admin Dashboard Functions
+        let allProducts = products;
+        let allOrders = [];
+        let allUsers = [];
+        let currentEditProductId = null;
+        let currentEditOrderId = null;
+
+        // Check admin access
+        window.addEventListener('load', () => {
+            if (!isAdmin()) {
+                alert('Access Denied! Admin only.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            document.getElementById('adminName').textContent = `Hello, ${currentUser.name}!`;
+
+            loadDashboard();
+        });
+
+        function loadDashboard() {
+            allOrders = getOrders();
+            allUsers = getAllUsers();
+            
+            // Load analytics
+            const analytics = getAnalytics();
+            document.getElementById('totalOrders').textContent = analytics.totalOrders;
+            document.getElementById('totalRevenue').textContent = `$${analytics.totalRevenue}`;
+            document.getElementById('totalUsers').textContent = analytics.totalUsers;
+
+            // Load top products
+            if (analytics.topProducts.length > 0) {
+                const topProductsHTML = analytics.topProducts.map(p => 
+                    `<div class="top-product">
+                        <strong>${p.name}</strong>
+                        <span class="quantity">${p.quantity} sold</span>
+                    </div>`
+                ).join('');
+                document.getElementById('topProducts').innerHTML = topProductsHTML;
+            }
+
+            loadInventory();
+            loadOrders();
+            loadUsers();
+        }
+
+        function getStatusClass(status) {
+            return String(status || 'pending').toLowerCase().replace(/\s+/g, '-');
+        }
+
+        function showSection(sectionName, btn) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+
+            // Mark button as active
+            if (btn) btn.classList.add('active');
+        }
+
+        // Inventory Management
+        function loadInventory() {
+            const tbody = document.getElementById('inventoryBody');
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td>#${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td><strong>${product.stock}</strong></td>
+                    <td>${product.category}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn edit-btn" onclick="editProductStock(${product.id}, '${product.name}')">Edit Stock</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function editProductStock(productId, productName) {
+            currentEditProductId = productId;
+            document.getElementById('modalProductName').value = productName;
+            document.getElementById('modalNewStock').value = '';
+            document.getElementById('editStockModal').classList.add('show');
+        }
+
+        function saveStockUpdate() {
+            const newStock = parseInt(document.getElementById('modalNewStock').value);
+            if (isNaN(newStock) || newStock < 0) {
+                alert('Please enter a valid stock quantity');
+                return;
+            }
+
+            updateProductStock(currentEditProductId, newStock);
+            closeModal('editStockModal');
+            loadInventory();
+            alert('Stock updated successfully!');
+        }
+
+        function searchInventory() {
+            const query = document.getElementById('searchInventory').value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+            const tbody = document.getElementById('inventoryBody');
+            tbody.innerHTML = filtered.map(product => `
+                <tr>
+                    <td>#${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td><strong>${product.stock}</strong></td>
+                    <td>${product.category}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn edit-btn" onclick="editProductStock(${product.id}, '${product.name}')">Edit Stock</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function resetInventorySearch() {
+            document.getElementById('searchInventory').value = '';
+            loadInventory();
+        }
+
+        // Orders Management
+        function loadOrders() {
+            const tbody = document.getElementById('ordersBody');
+            if (allOrders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #6b7280;">No orders yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = allOrders.map(order => `
+                <tr>
+                    <td><strong>${order.id}</strong></td>
+                    <td>${order.customerName || 'Unknown'}</td>
+                    <td>$${order.total?.toFixed(2) || '0.00'}</td>
+                    <td><span class="status-badge status-${getStatusClass(order.status)}">${order.status}</span></td>
+                    <td>${new Date(order.createdDate).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn edit-btn" onclick="editOrderStatus('${order.id}')">Update Status</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function editOrderStatus(orderId) {
+            currentEditOrderId = orderId;
+            const order = allOrders.find(o => o.id === orderId);
+            document.getElementById('modalOrderId').value = orderId;
+            document.getElementById('modalOrderStatus').value = order.status;
+            document.getElementById('editOrderModal').classList.add('show');
+        }
+
+        function saveOrderStatusUpdate() {
+            const newStatus = document.getElementById('modalOrderStatus').value;
+            updateOrderStatus(currentEditOrderId, newStatus);
+            closeModal('editOrderModal');
+            allOrders = getOrders();
+            loadOrders();
+            loadDashboard();
+            alert('Order status updated successfully!');
+        }
+
+        function searchOrders() {
+            const query = document.getElementById('searchOrders').value.toLowerCase();
+            const filtered = allOrders.filter(o => o.id.toLowerCase().includes(query));
+            const tbody = document.getElementById('ordersBody');
+            tbody.innerHTML = filtered.map(order => `
+                <tr>
+                    <td><strong>${order.id}</strong></td>
+                    <td>${order.customerName || 'Unknown'}</td>
+                    <td>$${order.total?.toFixed(2) || '0.00'}</td>
+                    <td><span class="status-badge status-${getStatusClass(order.status)}">${order.status}</span></td>
+                    <td>${new Date(order.createdDate).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn edit-btn" onclick="editOrderStatus('${order.id}')">Update Status</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function resetOrdersSearch() {
+            document.getElementById('searchOrders').value = '';
+            loadOrders();
+        }
+
+        // Users Management
+        function loadUsers() {
+            const tbody = document.getElementById('usersBody');
+            if (allUsers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #6b7280;">No users found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = allUsers.map(user => `
+                <tr>
+                    <td><strong>${user.name}</strong></td>
+                    <td>${user.email}</td>
+                    <td><span style="background: ${user.role === 'admin' ? '#3b82f6' : '#10b981'}; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">${user.role}</span></td>
+                    <td>${user.createdDate !== 'N/A' ? new Date(user.createdDate).toLocaleDateString() : 'N/A'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function searchUsers() {
+            const query = document.getElementById('searchUsers').value.toLowerCase();
+            const filtered = allUsers.filter(u => 
+                u.email.toLowerCase().includes(query) || u.name.toLowerCase().includes(query)
+            );
+            const tbody = document.getElementById('usersBody');
+            tbody.innerHTML = filtered.map(user => `
+                <tr>
+                    <td><strong>${user.name}</strong></td>
+                    <td>${user.email}</td>
+                    <td><span style="background: ${user.role === 'admin' ? '#3b82f6' : '#10b981'}; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">${user.role}</span></td>
+                    <td>${user.createdDate !== 'N/A' ? new Date(user.createdDate).toLocaleDateString() : 'N/A'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function resetUsersSearch() {
+            document.getElementById('searchUsers').value = '';
+            loadUsers();
+        }
+
+        // Modal functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Close modals on background click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
