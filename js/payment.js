@@ -109,8 +109,9 @@ function validateCard() {
   const centuryBase  = Math.floor(currentYear / 100) * 100;
   const fullYear     = centuryBase + yyInt;
   const now = new Date();
-  const expDate = new Date(fullYear, mmInt - 1, 1);
-  if (expDate <= now) return setError('card-exp-err', 'Card is expired.');
+  // Use day 0 of the next month to get the last day of the expiry month
+  const expDate = new Date(fullYear, mmInt, 0);
+  if (expDate < now) return setError('card-exp-err', 'Card is expired.');
 
   if (!/^\d{3,4}$/.test(cvv)) return setError('card-cvv-err', 'CVV must be 3-4 digits.');
   return true;
