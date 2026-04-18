@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | SuperMart</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .admin-login-container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .admin-login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .admin-login-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .admin-login-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-login-header p {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .admin-login-body {
+            padding: 40px;
+        }
+
+        .credentials-box {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .credentials-box h3 {
+            color: #059669;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .credential-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .credential-item label {
+            font-weight: 600;
+            color: #374151;
+            min-width: 100px;
+        }
+
+        .credential-item .value {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #d1d5db;
+            flex: 1;
+            color: #1f2937;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            padding: 6px 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background: #059669;
+        }
+
+        .form-section {
+            margin-top: 30px;
+        }
+
+        .form-section h3 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: #e0f2fe;
+            border-left: 4px solid #0284c7;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #0c4a6e;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #059669;
+            text-decoration: underline;
+        }
+
+        .demo-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #92400e;
+        }
+
+        .demo-note strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .separator {
+            margin: 25px 0;
+            height: 1px;
+            background: #e5e7eb;
+            position: relative;
+        }
+
+        .separator span {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .admin-login-header {
+                padding: 30px 20px;
+            }
+
+            .admin-login-header h1 {
+                font-size: 2rem;
+            }
+
+            .admin-login-body {
+                padding: 25px;
+            }
+
+            .credentials-box {
+                padding: 15px;
+            }
+
+            .credential-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .credential-item label {
+                margin-bottom: 8px;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background: #dcfce7;
+            border: 1px solid #10b981;
+            color: #166534;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <!-- Header -->
+            <div class="admin-login-header">
+                <h1>🛠️ Admin Login</h1>
+                <p>SuperMart Management Dashboard</p>
+            </div>
+
+            <!-- Body -->
+            <div class="admin-login-body">
+                <!-- Demo Note -->
+                <div class="demo-note">
+                    <strong>📌 Demo Version</strong>
+                    Demo admin credentials below. For production, use your own credentials.
+                </div>
+
+                <!-- Credentials Box -->
+                <div class="credentials-box">
+                    <h3>✅ Login Credentials</h3>
+                    
+                    <div class="credential-item">
+                        <label>Email:</label>
+                        <div class="value" id="emailValue">admin@supermart.com</div>
+                        <button class="copy-btn" onclick="copyToClipboard('emailValue', this)">Copy</button>
+                    </div>
+
+                    <div class="credential-item">
+                        <label>Password:</label>
+                        <div class="value" id="passValue">admin123</div>
+                        <button class="copy-btn" onclick="copyToClipboard('passValue', this)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <div class="form-section">
+                    <h3>🔐 Enter Your Credentials</h3>
+
+                    <div class="success-message" id="successMsg">✓ Login credentials copied! Paste them in the form below.</div>
+
+                    <div class="form-group">
+                        <label for="adminEmail">Email Address</label>
+                        <input type="email" id="adminEmail" placeholder="Enter admin email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminPass">Password</label>
+                        <input type="password" id="adminPass" placeholder="Enter admin password" required>
+                    </div>
+
+                    <button class="login-btn" onclick="adminLogin()">Login to Dashboard</button>
+                </div>
+
+                <div class="separator"><span>OR</span></div>
+
+                <!-- Quick Login -->
+                <button class="login-btn" style="background: #6366f1;" onclick="quickAdminLogin()">
+                    🚀 Quick Login (Use Demo Credentials)
+                </button>
+
+                <!-- Info Box -->
+                <div class="info-box">
+                    <strong>💡 What can you do?</strong>
+                    View orders, manage inventory, check user analytics, update order status, and more!
+                </div>
+
+                <!-- Back Link -->
+                <a href="index.html" class="back-link">← Back to Store</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function copyToClipboard(elementId, button) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                
+                const successMsg = document.getElementById('successMsg');
+                successMsg.classList.add('show');
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                    successMsg.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        function adminLogin() {
+            const email = document.getElementById('adminEmail').value.trim();
+            const pass = document.getElementById('adminPass').value.trim();
+
+            if (!email || !pass) {
+                alert('Please enter email and password');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('grocery_users') || '[]');
+            const user = users.find(u => u.email === email && u.pass === pass);
+
+            if (user) {
+                if (user.role === 'admin') {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    window.location.href = 'admin.html';
+                } else {
+                    alert('❌ This account is not an admin account. Please use admin credentials.');
+                }
+            } else {
+                alert('❌ Invalid email or password. Please try again.');
+            }
+        }
+
+        function quickAdminLogin() {
+            document.getElementById('adminEmail').value = 'admin@supermart.com';
+            document.getElementById('adminPass').value = 'admin123';
+            
+            setTimeout(() => {
+                adminLogin();
+            }, 300);
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('adminPass').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                adminLogin();
+            }
+        });
+    </script>
+</body>
+</html>
