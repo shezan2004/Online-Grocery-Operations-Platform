@@ -1,0 +1,70 @@
+-- SuperMart SQL schema (MySQL)
+-- Run: mysql -u root -p < schema.sql
+
+CREATE DATABASE IF NOT EXISTS supermart CHARACTER SET = 'utf8mb4' COLLATE = 'utf8mb4_unicode_ci';
+USE supermart;
+
+-- Users
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(191) NOT NULL,
+  email VARCHAR(191) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('admin','customer') NOT NULL DEFAULT 'customer',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products
+CREATE TABLE IF NOT EXISTS products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  category VARCHAR(100) DEFAULT '',
+  img VARCHAR(255) DEFAULT '',
+  rating FLOAT DEFAULT 0,
+  reviews INT DEFAULT 0,
+  stock INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Orders
+CREATE TABLE IF NOT EXISTS orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_ref VARCHAR(64) NOT NULL UNIQUE,
+  user_id INT NULL,
+  customer_name VARCHAR(255) NOT NULL,
+  customer_email VARCHAR(255) NOT NULL,
+  address TEXT,
+  phone VARCHAR(50),
+  payment_method VARCHAR(100),
+  coupon_code VARCHAR(64),
+  subtotal DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  discount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  vat DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  status VARCHAR(50) DEFAULT 'Pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Order items
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT
+);
+
+-- Optional: coupons
+CREATE TABLE IF NOT EXISTS coupons (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  code VARCHAR(64) NOT NULL UNIQUE,
+  type ENUM('percentage','fixed') NOT NULL,
+  discount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  min_amount DECIMAL(10,2) DEFAULT 0.00,
+  active TINYINT(1) DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
